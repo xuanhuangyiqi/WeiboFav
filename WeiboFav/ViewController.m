@@ -92,10 +92,11 @@ WeiboRequestOperation *_query;
         [main setScrollEnabled:NO];
 
         
-        UITextView *retweet = [[UITextView alloc] initWithFrame:CGRectMake(5, mainHeihgt, 310, retweetHeight)];
+        UITextView *retweet = [[UITextView alloc] initWithFrame:CGRectMake(5, 0, 310, retweetHeight)];
+        UITextView *retweet_back = [[UITextView alloc] initWithFrame:CGRectMake(0, mainHeihgt, 320, retweetHeight+10)];
+        [retweet_back setBackgroundColor:[UIColor whiteColor]];
         [retweet setEditable:NO];
         [retweet setFont:font];
-        [retweet setAlpha:0.5];
         [retweet setDataDetectorTypes:15];
         [retweet setText:status.retweet];
         [retweet setBackgroundColor:[UIColor grayColor]];
@@ -104,10 +105,12 @@ WeiboRequestOperation *_query;
         [retweet setScrollEnabled:NO];
 
         
-        UIView *item = [[UIView alloc] initWithFrame:CGRectMake(0, top, 320, mainHeihgt+retweetHeight)];
+        UIView *item = [[UIView alloc] initWithFrame:CGRectMake(0, top, 320, mainHeihgt+retweetHeight+11)];
         [item addSubview:main];
-        [item addSubview:retweet];
-        top += mainHeihgt+retweetHeight;
+        [retweet_back addSubview:retweet];
+        [item addSubview:retweet_back];
+        [item setBackgroundColor:[UIColor blackColor]];
+        top += mainHeihgt+retweetHeight+11;
 
         
         [self.scroll addSubview:item];
