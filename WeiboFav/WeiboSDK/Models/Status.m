@@ -47,7 +47,7 @@
         else {
             self.geo = nil;
         }
-        NSDictionary *userDic = [dic dictionaryValueForKey:@"user"];
+        NSDictionary *userDic = [[dic dictionaryValueForKey:@"status"] dictionaryValueForKey: @"user"];
         if (userDic) {
             self.user = [[User alloc]initWithJsonDictionary:userDic];
         }

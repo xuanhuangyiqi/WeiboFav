@@ -240,7 +240,6 @@ static Weibo *g_weibo = nil;
 
 - (WeiboRequestOperation *)queryFavorites:(int)count
                                               completed:(WeiboTimelineQueryCompletedBlock)completedBlock {
-    NSLog(@"fav");
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                    self.appKey, @"source",
                                    [NSString stringWithFormat:@"%d", count], @"count"

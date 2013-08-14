@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 #import "Weibo.h"
-
+#import "PocketAPI.h"
+#import "EvernoteSDK.h"
 @interface ViewController : UIViewController
 
 -(void) loadStatuses;

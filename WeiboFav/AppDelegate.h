@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Weibo.h"
+#import "PocketAPI.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
