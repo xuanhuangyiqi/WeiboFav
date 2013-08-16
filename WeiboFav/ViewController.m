@@ -34,6 +34,7 @@ NSInteger pressed;
     [super viewDidLoad];
     self.scroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
     [self.view addSubview:self.scroll];
+    [self.scroll setBackgroundColor:[UIColor lightGrayColor]];
 
 
     [[SIAlertView appearance] setMessageFont:[UIFont systemFontOfSize:13]];
@@ -42,6 +43,7 @@ NSInteger pressed;
     [[SIAlertView appearance] setCornerRadius:12];
     [[SIAlertView appearance] setShadowRadius:20];
     [[SIAlertView appearance] setViewBackgroundColor:[UIColor whiteColor]];
+
     
 }
 
@@ -124,7 +126,7 @@ NSInteger pressed;
 - (NSInteger) countHeight:(NSString *)content withWidth:(NSInteger) width
 {
     if ([content length] == 0) return 0;
-    UIFont *font = [UIFont fontWithName:@"Arial" size:14.0f];
+    UIFont *font = [UIFont fontWithName:@"Arial" size:12.0f];
     CGSize size = [content sizeWithFont:font constrainedToSize:CGSizeMake(width, 1000.0f) lineBreakMode:UILineBreakModeCharacterWrap];
     return size.height;
 }
@@ -134,61 +136,70 @@ NSInteger pressed;
 {
     NSInteger top = 0;
     
-    UIFont *font = [UIFont fontWithName:@"Arial" size:14.0f];
+    UIFont *font = [UIFont fontWithName:@"Arial" size:12.0f];
 
     NSError *error = NULL;
     NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink|NSTextCheckingTypePhoneNumber error:&error];
     
+    UIColor* mainColor = [UIColor colorWithRed:50.0/255 green:102.0/255 blue:147.0/255 alpha:1.0f];
+    UIColor* neutralColor = [UIColor colorWithWhite:0.4 alpha:1.0];
+    UIColor* mainColorLight = [UIColor colorWithRed:50.0/255 green:102.0/255 blue:147.0/255 alpha:0.7f];
+
     for (int i = 0; i < _statuses.count; ++i )
     {
+        UIView *item = [[UIView alloc] initWithFrame:CGRectMake(0, top, 320, 5)];
+
+        int item_length = 0;
         Status *status = [_statuses objectAtIndex:i];
-        NSInteger mainHeihgt = [self countHeight:status.text withWidth:320];
-        NSInteger retweetHeight = [self countHeight:status.retweet withWidth:310];
+        NSInteger mainHeihgt = [self countHeight:status.text withWidth:310];
+        NSInteger retweetHeight = [self countHeight:status.retweet withWidth:300];
         
         //UITextView *main = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 320, mainHeihgt)];
-        STTweetLabel *main = [[STTweetLabel alloc] initWithFrame:CGRectMake(0, 0, 320, mainHeihgt)];
+        STTweetLabel *main = [[STTweetLabel alloc] initWithFrame:CGRectMake(5, 5, 310, mainHeihgt)];
         main.delegate = self;
-        //[main setEditable:NO];
         [main setText:status.text];
         [main setFont:font];
+        [main setTextColor:neutralColor];
+        
+        main.numberOfLines = 0;
         [main setBackgroundColor:[UIColor whiteColor]];
-        //[main setDataDetectorTypes:15];
-        //[main setScrollEnabled:NO];
         main.tag = i;
+        item_length += mainHeihgt + 10;
+        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(LongP:)];
 
-
-        
+       
+        if (retweetHeight > 0)
+        {
         //UITextView *retweet = [[UITextView alloc] initWithFrame:CGRectMake(5, 0, 310, retweetHeight)];
-        STTweetLabel *retweet = [[STTweetLabel alloc] initWithFrame:CGRectMake(5, 0, 310, retweetHeight)];
-        retweet.delegate = self;
-        UITextView *retweet_back = [[UITextView alloc] initWithFrame:CGRectMake(0, mainHeihgt, 320, retweetHeight+10)];
-        [retweet_back setEditable:NO];
-        [retweet_back setBackgroundColor:[UIColor whiteColor]];
+            STTweetLabel *retweet = [[STTweetLabel alloc] initWithFrame:CGRectMake(5, 5, 300, retweetHeight)];
+            retweet.delegate = self;
+            UITextView *retweet_back = [[UITextView alloc] initWithFrame:CGRectMake(5, mainHeihgt+10, 310, retweetHeight+10)];
+            [retweet_back setEditable:NO];
         //[retweet setEditable:NO];
-        [retweet setFont:font];
+            [retweet setFont:font];
         //[retweet setDataDetectorTypes:15];
-        [retweet setText:status.retweet];
-        [retweet setBackgroundColor:[UIColor grayColor]];
-        retweet.layer.cornerRadius = 6;
-        retweet.layer.masksToBounds = YES;
-        //[retweet setBounds:(CGRect)];
-        //[retweet setScrollEnabled:NO];
-        retweet.tag = i;
+            [retweet setText:status.retweet];
+            [retweet setTextColor:mainColorLight];
+            
+            [retweet_back setBackgroundColor:[UIColor colorWithRed:1 green:0.6 blue:0.9 alpha:0.3]];
+            retweet_back.layer.cornerRadius = 3;
+            retweet_back.layer.masksToBounds = YES;
 
-        
-        UIView *item = [[UIView alloc] initWithFrame:CGRectMake(0, top, 320, mainHeihgt+retweetHeight+11)];
+            retweet.tag = i;
+            item_length += retweetHeight+15;
+            [retweet_back addSubview:retweet];
+            [item addSubview:retweet_back];
+            [retweet addGestureRecognizer:longPress];
+
+        }
+
+        [item setBackgroundColor:[UIColor whiteColor]];
+        item.frame = CGRectMake(0, top, 320, item_length);
         [item addSubview:main];
         item.tag = i;
-        [retweet_back addSubview:retweet];
-        [item addSubview:retweet_back];
-        [item setBackgroundColor:[UIColor grayColor]];
-        top += mainHeihgt+retweetHeight+11;
+        top += item_length + 1;
         
-        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(LongP:)];
-        [retweet addGestureRecognizer:longPress];
         [main addGestureRecognizer:longPress];
-
-        
         [self.scroll addSubview:item];
         
     }

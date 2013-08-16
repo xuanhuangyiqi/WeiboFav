@@ -84,6 +84,7 @@
 		017F147B17BB8BD700D032D9 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 017F147A17BB8BD700D032D9 /* StoreKit.framework */; };
 		017F147D17BC75A900D032D9 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 017F147C17BC75A900D032D9 /* CoreText.framework */; };
 		017F148117BC784C00D032D9 /* STTweetLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 017F148017BC784C00D032D9 /* STTweetLabel.m */; };
+		017F15E317BE259800D032D9 /* FeedCell2.m in Sources */ = {isa = PBXBuildFile; fileRef = 017F15E217BE259800D032D9 /* FeedCell2.m */; };
 		019A082E17BA10E600EFBB69 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 019A082D17BA10E600EFBB69 /* UIKit.framework */; };
 		019A083017BA10E600EFBB69 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 019A082F17BA10E600EFBB69 /* Foundation.framework */; };
 		019A083217BA10E600EFBB69 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 019A083117BA10E600EFBB69 /* CoreGraphics.framework */; };
@@ -289,6 +290,8 @@
 		017F147C17BC75A900D032D9 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		017F147F17BC784C00D032D9 /* STTweetLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STTweetLabel.h; sourceTree = "<group>"; };
 		017F148017BC784C00D032D9 /* STTweetLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STTweetLabel.m; sourceTree = "<group>"; };
+		017F15E117BE259800D032D9 /* FeedCell2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedCell2.h; sourceTree = "<group>"; };
+		017F15E217BE259800D032D9 /* FeedCell2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedCell2.m; sourceTree = "<group>"; };
 		019A082A17BA10E600EFBB69 /* WeiboFav.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeiboFav.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		019A082D17BA10E600EFBB69 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		019A082F17BA10E600EFBB69 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -692,6 +695,15 @@
 			path = ../STTweetLabel;
 			sourceTree = "<group>";
 		};
+		017F15E417BE259F00D032D9 /* ADVFlat */ = {
+			isa = PBXGroup;
+			children = (
+				017F15E117BE259800D032D9 /* FeedCell2.h */,
+				017F15E217BE259800D032D9 /* FeedCell2.m */,
+			);
+			name = ADVFlat;
+			sourceTree = "<group>";
+		};
 		019A082117BA10E600EFBB69 = {
 			isa = PBXGroup;
 			children = (
@@ -731,6 +743,7 @@
 		019A083317BA10E600EFBB69 /* WeiboFav */ = {
 			isa = PBXGroup;
 			children = (
+				017F15E417BE259F00D032D9 /* ADVFlat */,
 				017F147E17BC784C00D032D9 /* STTweetLabel */,
 				017F139B17BB699100D032D9 /* evernote-sdk-ios */,
 				019A086B17BA113900EFBB69 /* WeiboSDK */,
@@ -1086,6 +1099,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				019A086217BA10E700EFBB69 /* WeiboFavTests.m in Sources */,
+				017F15E317BE259800D032D9 /* FeedCell2.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
