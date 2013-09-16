@@ -32,7 +32,8 @@ NSInteger pressed;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.scroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
+    CGRect r = [[UIScreen mainScreen] bounds];
+    self.scroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, r.size.width, r.size.height)];
     [self.view addSubview:self.scroll];
     [self.scroll setBackgroundColor:[UIColor lightGrayColor]];
 
@@ -145,17 +146,19 @@ NSInteger pressed;
     UIColor* neutralColor = [UIColor colorWithWhite:0.4 alpha:1.0];
     UIColor* mainColorLight = [UIColor colorWithRed:50.0/255 green:102.0/255 blue:147.0/255 alpha:0.7f];
 
+    CGFloat width = [[UIScreen mainScreen] bounds].size.width;
+    
     for (int i = 0; i < _statuses.count; ++i )
     {
-        UIView *item = [[UIView alloc] initWithFrame:CGRectMake(0, top, 320, 5)];
+        UIView *item = [[UIView alloc] initWithFrame:CGRectMake(0, top, width, 5)];
 
         int item_length = 0;
         Status *status = [_statuses objectAtIndex:i];
-        NSInteger mainHeihgt = [self countHeight:status.text withWidth:310];
-        NSInteger retweetHeight = [self countHeight:status.retweet withWidth:300];
+        NSInteger mainHeihgt = [self countHeight:status.text withWidth:width-10];
+        NSInteger retweetHeight = [self countHeight:status.retweet withWidth:width-20];
         
         //UITextView *main = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 320, mainHeihgt)];
-        STTweetLabel *main = [[STTweetLabel alloc] initWithFrame:CGRectMake(5, 5, 310, mainHeihgt)];
+        STTweetLabel *main = [[STTweetLabel alloc] initWithFrame:CGRectMake(5, 5, width-10, mainHeihgt)];
         main.delegate = self;
         [main setText:status.text];
         [main setFont:font];
@@ -171,9 +174,9 @@ NSInteger pressed;
         if (retweetHeight > 0)
         {
         //UITextView *retweet = [[UITextView alloc] initWithFrame:CGRectMake(5, 0, 310, retweetHeight)];
-            STTweetLabel *retweet = [[STTweetLabel alloc] initWithFrame:CGRectMake(5, 5, 300, retweetHeight)];
+            STTweetLabel *retweet = [[STTweetLabel alloc] initWithFrame:CGRectMake(5, 5, width-20, retweetHeight)];
             retweet.delegate = self;
-            UITextView *retweet_back = [[UITextView alloc] initWithFrame:CGRectMake(5, mainHeihgt+10, 310, retweetHeight+10)];
+            UITextView *retweet_back = [[UITextView alloc] initWithFrame:CGRectMake(5, mainHeihgt+10, width-10, retweetHeight+10)];
             [retweet_back setEditable:NO];
         //[retweet setEditable:NO];
             [retweet setFont:font];
@@ -194,7 +197,7 @@ NSInteger pressed;
         }
 
         [item setBackgroundColor:[UIColor whiteColor]];
-        item.frame = CGRectMake(0, top, 320, item_length);
+        item.frame = CGRectMake(0, top, width, item_length);
         [item addSubview:main];
         item.tag = i;
         top += item_length + 1;
@@ -203,13 +206,12 @@ NSInteger pressed;
         [self.scroll addSubview:item];
         
     }
-    [self.scroll setContentSize:CGSizeMake(320, top)];
+    [self.scroll setContentSize:CGSizeMake(width, top)];
 }
 
 -(void) saveToPocket:(NSString *)u
 {
     NSURL *url = [NSURL URLWithString:u];
-    NSLog(@"321");
     [[PocketAPI sharedAPI] saveURL:url handler: ^(PocketAPI *API, NSURL *URL,
                                                   NSError *error){
         if(error){

@@ -894,6 +894,7 @@
 				019A082617BA10E600EFBB69 /* Sources */,
 				019A082717BA10E600EFBB69 /* Frameworks */,
 				019A082817BA10E600EFBB69 /* Resources */,
+				FF22841817BE723B0064CA94 /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -999,6 +1000,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+		FF22841817BE723B0064CA94 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export\nCODESIGN_ALLOCATE=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/codesign_allocate\n\nif [ \"${PLATFORM_NAME}\" ==\"iphoneos\" ] || [ \"${PLATFORM_NAME}\" == \"ipados\"]; then\n\n/Applications/Xcode.app/Contents/Developer/iphoneentitlements/gen_entitlements.py \"my.company.${PROJECT_NAME}\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/${PROJECT_NAME}.xcent\";\n\ncodesign -f -s \"iPhone Developer\" --entitlements \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/${PROJECT_NAME}.xcent\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"\n\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1211,8 +1226,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Steven Fransen (7S2SY4ZDJA)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Steven Fransen (7S2SY4ZDJA)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1226,8 +1241,6 @@
 					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9A44661B-DF09-4934-BD33-D6E82BEC2239";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "9A44661B-DF09-4934-BD33-D6E82BEC2239";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1236,8 +1249,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Steven Fransen (7S2SY4ZDJA)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Steven Fransen (7S2SY4ZDJA)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1251,8 +1264,6 @@
 					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9A44661B-DF09-4934-BD33-D6E82BEC2239";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "9A44661B-DF09-4934-BD33-D6E82BEC2239";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
